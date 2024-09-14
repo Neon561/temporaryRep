@@ -72,22 +72,7 @@ public class SiteMapTask extends RecursiveTask<Void> {
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
-        String startUrl = "https://lenta.ru"; // Начальный URL
-
-        // Структура для хранения карты сайта
-        Map<String, List<String>> siteMap = new ConcurrentHashMap<>();
-        Set<String> visited = new HashSet<>();
-
-        ForkJoinPool pool = new ForkJoinPool();
-        SiteMapTask rootTask = new SiteMapTask(startUrl, visited, siteMap, 0);
-        pool.invoke(rootTask); // Запускаем главную задачу
-
-        // После завершения обхода — записываем карту сайта в файл
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sitemap.txt"))) {
-            writeSiteMap(siteMap, writer, startUrl, 0);
-        }
-    }
+    
 
     // Метод для записи карты сайта в файл с правильной вложенностью
     private static void writeSiteMap(Map<String, List<String>> siteMap, BufferedWriter writer, String url, int depth) throws IOException {
